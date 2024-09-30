@@ -8,21 +8,9 @@ const saltRounds = 10;
 
 const defaultController = async (req, res) => {
 
-    if(req.cookies.UserId){
 
-        const fName = req.cookies.FirstName;
-        const lName = req.cookies.LastName;
-
-        res.render('index',{
-            fName : fName,
-            lName : lName
-        });
-    }else{
-    
-        res.redirect('/login')
-
-    }
-
+        res.render('index');
+           
 }
 
 
@@ -31,6 +19,10 @@ const defaultController = async (req, res) => {
 // Sign Up Form Submission Process
 
 const signupController = (req, res) => {
+    if(req.isAuthenticated()){
+
+        res.redirect('/')
+      }
     res.render('signup');
 }
 const postSignupController = async (req, res) => {
@@ -66,51 +58,44 @@ const postSignupController = async (req, res) => {
 
 
 const loginController = (req, res) => {
+     if(req.isAuthenticated()){
+
+      res.redirect('/')
+    }
     res.render('login');
 }
 
 
-const PostLoginController = async (req, res) => {
+const PostLoginController =  async(req, res) => {
     console.log("Login Pending..");
-    
-    const userLogin = await modelsmsg.find({
-        email: req.body.email
+     
+       res.redirect('/');
+}
+
+const logoutController = (req,res)=>{
+
+    console.log("Logout");
+    req.logout((err)=>{
+        if(err){
+            next()
+        }
+
+        res.redirect('/login')
     })
-    console.log("userLOGIN", userLogin);
-    
 
-    if(userLogin){
-        bcrypt.compare(req.body.password, userLogin[0].password,  async(err, result)=>{
-            if (!err) {
-                res.cookie("UserId",userLogin[0]._id.toString());
-                res.cookie("FirstName",userLogin[0].fname);
-                res.cookie("LastName",userLogin[0].lname);
-                res.redirect('/');
-            }
-        })
-    }else{
-       res.redirect('/login');
-    }
 }
 
+//addblog 
 
-// profileController
+const addblogController = (req,res) =>{
+    console.log("AddBlog Render");
 
-const profileController = async (req,res) =>{
-
-    const fname = await req.cookies.FirstName;
-    const lname = await req.cookies.LastName;
-
-    
-        
-            res.render('profile', {
-                fname:fname,
-                lname:lname
-            });
-
+    res.render('addblog');
 
 }
 
 
 
-module.exports = { defaultController, signupController, loginController, postSignupController, PostLoginController,profileController};
+
+
+module.exports = { defaultController, signupController, loginController, postSignupController, PostLoginController,logoutController,addblogController};

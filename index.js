@@ -9,11 +9,16 @@ const PORT = process.env.PORT || 3000;
 const bodyParser = require('body-parser');
 const mypath = path.join(__dirname, '/views');
 const database = require('./config/db');
+const passport = require('./config/passport')
 const cookieParser = require('cookie-parser');
     
 
 app.set('view engine', 'ejs');
 
+
+app.use(require('express-session')({ secret: 'meet', resave: true, saveUninitialized: true }));
+app.use(passport.initialize());
+app.use(passport.session());
 
 
 app.use(express.static(mypath));

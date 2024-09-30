@@ -56,8 +56,11 @@
     <!-- Header -->
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container-fluid">
-            <a class="navbar-brand " href="#"><b><%= fName %></b></a>
-            <a href="/login" class="main-btn">LOGIN</a>
+            <a class="navbar-brand " href="#"><b>KAVATHIYA</b></a>
+            <div>
+                <a href="/login" class="main-btn">LOGIN</a>
+                <a href="/logout" class="main-btn">LogOut</a>
+            </div>
         </div>
     </nav>
 
@@ -66,10 +69,10 @@
         <div class="sidebar bg-dark p-3 text-white">
             <ul class="nav flex-column">
                 <li class="nav-item">
-                    <a class="nav-link text-white" href="/profile">Profile</a>
+                    <a class="nav-link text-white" href="#">Dashboard</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link text-white" href="#">Dashboard</a>
+                    <a class="nav-link text-white" href="/addblog">Add Blog</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link text-white" href="#">Users</a>
@@ -81,7 +84,9 @@
         </div>
 
         <div class="content p-4 text-left">
-            <h2 style="margin-left: 180px;">Welcome to the <span style="color: maroon;"><%= fName %></span> <%= lName %>👋</h2>
+            <div>
+                
+            </div>
             
         </div>
     </div>
